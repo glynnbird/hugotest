@@ -1,0 +1,12 @@
+{{ partial "header" . }}
+<div class="doc bx--col-sm-12 bx--col-md-12 bx--col-lg-12  bx--col-xlg-12 bx--col-max-12">
+  <h1 class="p-name">{{ .Title }}</h1>
+  {{ if eq .Params.type "blog" }}
+  <div class="postmeta">{{ .Date | time.Format ":date_medium" }} | {{ .Params.author }}
+  </div>
+  <div class="posttags">{{ partial "tags.html" . }}</div>
+  {{ end }}
+  {{ .Content | replaceRE "(<h[1-6]\\sid=\"([^\"]+)\"\\s?)(>)(.+)(</h[1-6]+>)" "${1}${3}${4}<a class=\"stealth\" href=\"#${2}\">🔗</a>${5}<br>" |
+    safeHTML }}
+</div>
+{{ partial "footer.html" . }}

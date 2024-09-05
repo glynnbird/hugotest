@@ -1,0 +1,22 @@
+baseURL = 'https://blog.cloudant.com/'
+languageCode = 'en-us'
+title = 'Cloudant blog'
+theme = 'carbon-hugo-theme'
+publishDir = 'public'
+canonifyURLs = true
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
+[menu]
+[[menu.header]]
+  name = 'Home'
+  pageRef = '/'
+  weight = 10
+[[menu.header]]
+  name = 'Search'
+  pageRef = '/search.html'
+  weight = 20
+[[module.mounts]]
+  source = 'static'
+  target = 'assets'

@@ -1,0 +1,6 @@
+
+{{ if .Params.tags }}
+  {{ range first 5 .Params.tags }}
+  <tag size="lg">{{ . }}</tag>
+  {{ end }}
+{{ end}}

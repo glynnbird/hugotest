@@ -1,0 +1,33 @@
+
+{{ $link := .Permalink }}
+<div class="postlistitem bx--col-sm-12 bx--col-md-12 bx--col-lg-6 bx--col-xlg-4 bx--col-max-3" aria-labelledby="{{ .Title }}">
+  <h3 class="postlistitem_title">
+    <a href="{{ $link }}">
+      {{ .Title }}
+    </a>
+  </h3>
+
+  {{ $image := resources.Get ( printf "%s" .Params.image ) }}
+  {{ with $image }}
+  <a href="{{ $link }}">
+    <img src="{{ ( $image.Resize " 400x" ).RelPermalink }}" />
+  </a>
+  {{ end }}
+
+
+  {{ if .Description }}
+  <p class="postlistitem_descr"><a href="{{ $link }}">{{ .Description }}</a></p>
+  {{ end }}
+
+  {{/*  {{ if .Date }}
+  <p class="postlistitem_date">
+    {{ .Date | time.Format ":date_medium" }}
+  </p>
+  {{ end }}
+
+  <p class="postlistitem_tag">{{ partial "tags.html" . }}</p>  */}}
+  
+  <p class="postlistitem_button">
+    <a href="{{ $link }}">Read</a>
+  </p>
+  </div>

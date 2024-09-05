@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.LanguageCode }}">
+  <head>
+    <title>{{ .Title }}</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, minimal-ui, shrink-to-fit=no">
+  <meta name="theme-color" content="{{ .Site.Params.header | default "#354F52" }}">
+  <link rel="stylesheet" href="https://1.www.s81c.com/common/carbon/web-components/tag/v2/latest/themes.css" />
+  <script type="module" src="https://1.www.s81c.com/common/carbon/web-components/tag/v2/latest/ui-shell.min.js"></script>
+  <script type="module" src="https://1.www.s81c.com/common/carbon/web-components/tag/v2/latest/content-switcher.min.js"></script>
+  <script type="module" src="https://1.www.s81c.com/common/carbon/web-components/tag/v2/latest/skip-to-content.min.js"></script>
+  <script type="module" src="https://1.www.s81c.com/common/carbon/web-components/tag/v2/latest/tag.min.js"></script>
+  <link rel="icon" href="/favicon.png">
+
+  {{ partial "css" . }} {{ partial "js" . }} {{ hugo.Generator }}
+
+  {{ if eq .Params.type "blog" }}
+    <!-- Facebook -->
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="{{ .Title }}">
+    <meta property="og:url" content="{{ .Permalink }}" />
+    <meta property="og:description" content="{{ .Description }}" />
+    <meta property="article:published_time" content="{{ .Date }}" />
+    <meta property="og:site_name" content="{{ .Site.Title }}" />
+    <meta property="og:image" content="{{ .Params.image }}" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="{{ .Site.Title }}" />
+    <meta name="twitter:title" content="{{ .Title }}" />
+    <meta name="twitter:description" content="{{ .Description}}" />
+    <meta name="twitter:creator" content="{{ .Site.Title }}" />
+
+    <!-- Google -->
+    <meta itemprop="name" content="{{ .Title }}">
+    <meta itemprop="description" content="{{ .Description }}">
+    <meta itemprop="image" content="{{ .Params.image}}">
+  {{ end }}
+
+
+
+
+  <!-- styling -->
+  <style>
+@media (min-width: 66rem) {
+.container .cds--grid {
+  padding-left: calc(25% + 1.5rem);
+  padding-right: 2rem;
+}
+}
+    h3 {
+      margin-bottom: 1rem;
+    }
+  </style>
+  {{ range .AlternativeOutputFormats -}}
+    {{ printf `<link rel="%s" type="%s" href="%s" title="%s" />` .Rel .MediaType.Type .Permalink $.Site.Title | safeHTML }}
+  {{ end -}}
+</head>
+<body class="cds-theme-zone-g100 {{ .Site.Params.build }}">
+    {{ partial "body-open" . }}
+<bx-skip-to-content href="#main-content" role="navigation" aria-label="Skip to main content"></bx-skip-to-content>
+<cds-header aria-label="{{ .Site.Params.org }} {{ .Site.Title }}" role="banner">
+  <cds-header-name prefix="{{ .Site.Params.org }}"> {{ .Site.Title }}</cds-header-name>
+  <cds-header-nav menu-bar-label="{{ .Site.Params.org }} {{ .Site.Title }}" role="navigation">
+    {{ if .Site.Menus.header }}
+        {{ range sort .Site.Menus.header }}
+          {{ if .HasChildren }}
+          <cds-header-menu menu-label="{{ .Name }}" trigger-content="{{ .Name }}" role="listitem">
+            {{ range .Children }}
+              <cds-header-menu-item href="{{ .URL }}" tabindex="-1" role="listitem">{{ .Name }}</cds-header-menu-item>
+              {{ end }}
+            </cds-header-menu>
+          {{ else }}
+            <cds-header-nav-item active="" href="{{ .URL }}">{{ .Name }}</cds-header-nav-item>
+          {{ end }}
+        {{ end }}
+    {{ end }}
+  </cds-header-nav>
+</cds-header>
+<div style="height:50px"></div>
+<main class="bx--content bx-hugo-carbon--ui-shell-content">
+  <div class="bx--grid">
+    <div class="bx--row">
+

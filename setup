@@ -1,0 +1,37 @@
+#!/bin/bash
+publishDir='docs'
+declare -a tools=('hugo' 'node' 'npm')
+
+red='\033[0;31m'
+green='\033[0;32m'
+yellow='\033[0;33m'
+no_color='\033[0m'
+
+color_print() {
+  echo -e "$1$2${no_color}"
+}
+
+check_error() {
+  if [ "$?" -ne 0 ]; then
+    color_print "${red}" "[FAIL] ERROR: $1" >&2
+    exit 1
+  fi
+}
+
+check_tools() {
+  color_print "${yellow}" "==> Checking tools: $1"
+  if [ "$1" == "hugo" ]; then
+    $1 version
+  else
+    $1 --version
+  fi
+
+  check_error "'$1' is not installed."
+}
+
+for t in "${tools[@]}"; do
+  check_tools "$t"
+done
+
+color_print "${green}" "[SUCCESS] Dev env setup successfully!"
+color_print "${yellow}" "[NOTE] Use 'make hugo' to produce '${publishDir}' directory for publishing to live blog!"
