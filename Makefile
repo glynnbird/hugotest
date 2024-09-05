@@ -7,14 +7,14 @@ env: # Setup dev environment.
 	@./setup
 
 clean: # Cleaning static resources
-	@rm -rf resources; git checkout docs static/js/searchcontent.js
+	@rm -rf resources; git checkout public static/js/searchcontent.js
 
 buildindex: # Building search index
 	@cd index && npm ci && node index.js >../static/js/searchcontent.js && cd ..
 
-hugo: buildindex # Building static site in the docs folder
+hugo: buildindex # Building static site in the public folder
 	@hugo --disableKinds=taxonomy
-	@rm -rf docs/tags
+	@rm -rf public/tags
 
 server: buildindex # Running hugo server - showing all content (inc drafts)
 	@hugo server --disableKinds=taxonomy --buildDrafts --buildExpired --buildFuture
